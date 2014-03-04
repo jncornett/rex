@@ -1,0 +1,26 @@
+body {
+	margin: 0;
+
+	background-color: #eee;
+}
+
+#main-input-box {
+	margin: none;
+	outline: none;
+	margin: 0;
+
+	border: 3px solid #eee;
+	border-radius: 20px;
+	background-color: white;
+
+	padding: 5px 10px;
+
+	font-family: Consolas, monospace;
+	font-size: 16px;
+	font-weight: 500;
+
+	transition: background-color 0.5s ease;
+	}
+	#main-input-box.invalid-regex {
+		background-color: #fcc;
+	}
