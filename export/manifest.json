@@ -1,0 +1,44 @@
+{
+  "manifest_version": 2,
+  "name": "Rex",
+  "version": "1.0",
+
+  "description": "Adds regular expression search functionality to your browser.",
+
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "css": ["css/rex.style.css"],
+      "js": ["scripts/rex.lib.min.js"]
+    }
+  ],
+
+  "browser_action": {
+    "default_icon": {
+      "19": "media/icon_19x19.png",
+      "38": "media/icon_38x38.png"
+    },
+    "default_title": "Rex - regular expressions search in Chrome",
+    "default_popup": "popup.html"
+  },
+
+  "commands": {
+    "select-next-match": {
+      "suggested_key": {
+        "default": "MacCtrl+Shift+T"
+      },
+      "description": "Advance search index to the next match."
+    }
+  },
+
+  "permissions": [
+    "tabs",
+    "<all_urls>"
+  ],
+
+  "icons": {
+    "16": "media/icon_16x16.png",
+    "48": "media/icon_48x48.png",
+    "128": "media/icon_128x128.png"
+  }
+}

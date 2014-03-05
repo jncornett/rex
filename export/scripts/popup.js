@@ -5,14 +5,13 @@
         handlers;
 
     settings = {
-        REGEX_FLAGS: 'gi',
+        REGEX_FLAGS: 'g',
         TYPE_TIMEOUT_MS: 0,
     };
 
 
     api = {
         sendSearch: function( port, searchString ) {
-            console.log('api.sendSearch', searchString);
             port.postMessage({
                 search: {
                     regex: searchString,
@@ -22,7 +21,6 @@
         },
 
         sendClear: function( port ) {
-            console.log('api.sendClear');
             port.postMessage({
                 clear: true
             });
@@ -38,7 +36,6 @@
 
         validateRegex: function( string ) {
             var regex;
-            
             try {
                 regex = new RegExp(string, settings.REGEX_FLAGS);
 
@@ -62,8 +59,6 @@
         onTextChange: function() {
             var value = this.textInputElement.value;
 
-            console.log('onTextChange', value);
-
             // Cancel any pending timeouts
             clearTimeout(this.timeoutObject);
 
@@ -77,7 +72,6 @@
 
         onKeyPress: function( e ) {
             var value = this.textInputElement.value;
-            console.log('onKeyPress', e);
 
             if ( value == this.lastTextValue ) {
                 return;
@@ -102,16 +96,13 @@
         // Start listening for a connection from the content script
         chrome.runtime.onConnect.addListener(function( port ) {
             var commandHandler = function( command ) {
-                console.log(command);
                 if ( command == 'select-next-match' ) {
                     api.selectNext(port, true);
                 }
             };
 
-            console.log('Received connection on port', port);
 
             port.onDisconnect.addListener(function() {
-                console.log('port Disconnected');
                 if ( handlers.textInputElement ) {
                     handlers.textInputElement.onkeyup = handlers.textInputElement.onchange = undefined;
                 }
@@ -119,7 +110,7 @@
 
                 // Attempt to reconnect
                 setTimeout(function() {
-                    chrome.tabs.executeScript(null, {file: 'scripts/inject.js'});
+                    chrome.tabs.executeScript(null, {file: 'scripts/inject.min.js'});
                 }, 100);
             });
 
@@ -134,7 +125,7 @@
         // Inject the content script
         chrome.tabs.executeScript(null,
             {
-                file: 'scripts/inject.js'
+                file: 'scripts/inject.min.js'
             });
     })();
 
