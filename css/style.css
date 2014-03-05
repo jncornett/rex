@@ -1,7 +1,16 @@
 body {
 	margin: 0;
 
-	background-color: #eee;
+	background-color: white;
+
+	display: flex;
+	align-items: center;
+}
+
+input, span {
+	font-family: Consolas, monospace;
+	font-size: 16px;
+	font-weight: 500;
 }
 
 #main-input-box {
@@ -15,8 +24,6 @@ body {
 
 	padding: 5px 10px;
 
-	font-family: Consolas, monospace;
-	font-size: 16px;
 	font-weight: 500;
 
 	transition: background-color 0.5s ease;
@@ -24,3 +31,34 @@ body {
 	#main-input-box.invalid-regex {
 		background-color: #fcc;
 	}
+
+.regex-style {
+	padding: 5px;
+
+	font-size: 18px;
+	font-weight: 800;
+
+	color: #f0f;
+}
+
+.regex-style.checkbox {
+	display: flex;
+	padding-left: 0;
+	margin-left: -5px;
+	}
+	.regex-style.checkbox > input {
+		display: none;
+		}
+		.regex-style.checkbox > input:checked + label {
+			color: #f0f;
+		}
+		.regex-style.checkbox > input:checked + label:hover {
+			color: #909;
+		}
+	.regex-style.checkbox > label {
+		cursor: pointer;
+		color: #ccc;
+		}
+		.regex-style.checkbox > label:hover {
+			color: #f8f;	
+		}

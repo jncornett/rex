@@ -1,4 +1,4 @@
-(function ( global, undefined ) {
+var rex = (function ( global, undefined ) {
     var NodeFilter = global.NodeFilter,
         FILTER_ACCEPT = NodeFilter.FILTER_ACCEPT,
         document = global.document,
@@ -108,4 +108,6 @@
         regexForEach: _ifilter_by_regexp,
         makeRexElement: _make_rex_element
     };
+
+    return global.rex;
 })(this);

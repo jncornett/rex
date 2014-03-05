@@ -5,8 +5,8 @@
         handlers;
 
     settings = {
-        REGEX_FLAGS: 'g',
-        TYPE_TIMEOUT_MS: 100,
+        REGEX_FLAGS: 'gi',
+        TYPE_TIMEOUT_MS: 0,
     };
 
 

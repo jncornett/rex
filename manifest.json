@@ -14,7 +14,10 @@
   ],
 
   "browser_action": {
-    "default_icon": "media/icon_temp.png",
+    "default_icon": {
+      "19": "media/icon_19x19.png",
+      "38": "media/icon_38x38.png"
+    },
     "default_title": "Rex - regular expressions search in Chrome",
     "default_popup": "popup.html"
   },
@@ -31,5 +34,11 @@
   "permissions": [
     "tabs",
     "<all_urls>"
-  ]
+  ],
+
+  "icons": {
+    "16": "media/icon_16x16.png",
+    "48": "media/icon_48x48.png",
+    "128": "media/icon_128x128.png"
+  }
 }
