@@ -31,6 +31,9 @@ input, span {
 	#main-input-box.invalid-regex {
 		background-color: #fcc;
 	}
+	#main-input-box.regex-matched {
+		background-color: #9f9;
+	}
 
 .regex-style {
 	padding: 5px;

@@ -1,5 +1,6 @@
 (function(window, undefined) {
     var executeSearch,
+        isVisible,
         revertTags,
         cleanup,
         unSelect,
@@ -8,14 +9,18 @@
         rexElements,
         selectables,
         port,
-
         document = window.document;
 
     executeSearch = function( string, flags ) {
+        console.log('execute search', string, flags);
         var regex = new RegExp(string, flags);
         rexElements = [];
         rex.regexForEach(regex, function( node, matches ) {
-            rexElements.push(rex.makeRexElement(node, matches));
+            console.log('node', node, matches);
+            if ( isVisible(node) ) {
+                console.log('visible');
+                rexElements.push(rex.makeRexElement(node, matches));
+            }
         });
 
         if ( rexElements.length ) {
@@ -23,6 +28,23 @@
             select(curIndex = 0);
         } else {
             rexElements = selectables = curIndex = undefined;
+        }
+
+        console.log('completed executeSearch');
+    };
+
+    isVisible = function( textNode ) {
+        var rect,
+            parent = textNode.parentElement;
+
+        if ( parent && 
+             (parent.offsetWidth > 0) && 
+             (parent.offsetHeight > 0) &&
+             (parent.clientHeight > 0) &&
+             (parent.clientWidth > 0) ) {
+            
+            return true;
+
         }
     };
 
@@ -67,13 +89,22 @@
         if ( msg.search ) {
             revertTags();
             executeSearch(msg.search.regex, msg.search.flags);
+            console.log('ok, posting length', (rexElements || {}).length);
+            port.postMessage({
+                matched: (rexElements || {}).length > 0
+            });
         } else if ( msg.hilight && rexElements.length ) {
             unSelect(curIndex);
             curIndex = (curIndex + msg.hilight.direction) % rexElements.length;
             select(curIndex);
         } else if ( msg.clear ) {
             revertTags();
+            port.postMessage({
+                matched: false
+            });
         }
+
+        console.log('length', rexElements.length);
     });
 
 })(this);

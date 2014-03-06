@@ -1,0 +1,73 @@
+<!doctype HTML>
+<html>
+<head>
+	<title>Nam scelerisque ornare tortor</title>
+	<style>
+
+		h1, h3 {
+			font-family: Futura, sans-serif;
+		}
+
+		h1 { 
+			font-size: 48px;
+		}
+
+		h3 {
+			font-size: 18px;
+		}
+
+		body {
+			padding: 24px;
+		}
+
+		#full-width {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		#columns {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.column {
+			width: 0;
+			flex-grow: 1;
+			display: flex;
+			flex-direction: column;
+
+		}
+
+		.column + div {
+			padding-left: 32px;
+		}
+
+		#full-width > p, 
+		.column > p {
+			font-family: Garamond, serif;
+			font-size: 18px;
+		}
+	</style>
+</head>
+<body>
+	<div id="full-width">
+		<h1>Ut dapibus vitae magna quis pulvinar</h1>
+		<p>Fusce quis facilisis ligula, adipiscing fringilla est. Phasellus mollis nunc at arcu cursus cursus. Ut vitae mi vestibulum, facilisis nulla vel, cursus eros. Morbi sed pellentesque eros. Sed ac tortor mi. Morbi hendrerit ac purus ac mattis. Curabitur lobortis arcu non lectus pulvinar, eu iaculis lacus hendrerit.</p>
+	</div>
+	<div id="columns">
+		<div class="column">
+			<h3>Etiam tristique arcu ac leo lobortis</h3>
+			<p>Pellentesque et lacus porttitor, gravida libero sit amet, facilisis leo. Nullam viverra arcu odio, sed pretium nibh consequat in. Fusce varius vulputate diam ultricies semper. Curabitur facilisis aliquet turpis et sagittis. Nulla facilisi. Aenean a lectus bibendum, posuere enim ut, porttitor urna. Vivamus orci tortor, pharetra rhoncus feugiat id, elementum quis sapien. Morbi pellentesque turpis sed lobortis egestas.</p>
+		</div>
+		<div class="column">
+			<h3>Curabitur imperdiet volutpat ultricies</h3>
+			<p>Suspendisse lectus orci, volutpat id nisi vitae, vehicula varius lorem. Fusce dapibus turpis id ligula tempor, sit amet venenatis nibh adipiscing. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Cras fermentum velit nec augue rutrum volutpat. Donec aliquam erat quis pulvinar rhoncus. Ut dignissim vitae justo vitae adipiscing. Aliquam tincidunt hendrerit magna sed vehicula. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+		</div>
+		<div class="column">
+			<h3>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas</h3>
+			<p>Aliquam in gravida lacus. Mauris hendrerit diam erat, ut porta tortor eleifend vel. Proin nec lacus ut nulla consequat sollicitudin. Vivamus at odio ultricies, consectetur augue id, tristique urna. Praesent dictum ut lectus sed feugiat. In sit amet diam vitae nisi dignissim varius. Praesent bibendum risus mattis nulla tempor, in viverra eros lobortis. Integer in porttitor orci, eu malesuada quam. Fusce semper eu erat vel suscipit. Vivamus sed adipiscing massa. Cras venenatis elit vitae mauris viverra faucibus. Curabitur et rutrum lorem. Nunc ut ante risus. Nam sit amet dui non purus hendrerit sollicitudin sit amet sed mi. Cras varius at tortor vitae facilisis.</p>
+		</div>
+	</div>
+</body>
+</html>

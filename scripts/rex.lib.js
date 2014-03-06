@@ -3,11 +3,14 @@ var rex = (function ( global, undefined ) {
         FILTER_ACCEPT = NodeFilter.FILTER_ACCEPT,
         document = global.document,
 
+        _is_visible,
         _span,
         _make_rex_element,
 
         _find_all,
         _ifilter_by_regexp;
+
+
 
     // Make a <span> element with a class className and 
     // append `children to it.
@@ -30,9 +33,10 @@ var rex = (function ( global, undefined ) {
     };
 
     _find_all = function( regex, string, callback ) {
-        var match;
+        var match, lastIndex = undefined;
 
-        while ( match = regex.exec(string) ) {
+        while ( (match = regex.exec(string)) && 
+                (lastIndex != (lastIndex = match.index)) ) {
             callback(match);
         }
     };

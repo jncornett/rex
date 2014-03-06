@@ -1,4 +1,8 @@
 (function(window, undefined) {
+    var LIPSUM = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem. Proin ut ligula vel nunc egestas porttitor. Morbi lectus risus, iaculis vel, suscipit quis, luctu.",
+        LIPSUM_LENGTH = LIPSUM.length,
+        LIPSUM_MAX_MATCH_RATIO = 0.1;
+
     var document = window.document,
         settings,
         api,
@@ -46,6 +50,7 @@
                 if ( regex.test('') ) {
                     throw "Regex matches empty string";
                 }
+
             } catch( e ) {
                 return false;
             }
@@ -69,6 +74,7 @@
 
             if ( value && api.validateRegex(value) ) {
                 // Regex is good
+
                 api.sendSearch(this.contentPort, value);
             } else {
                 api.sendClear(this.contentPort);
@@ -76,7 +82,8 @@
         },
 
         onKeyPress: function( e ) {
-            var value = this.textInputElement.value;
+            var lipsum,
+                value = this.textInputElement.value;
             console.log('onKeyPress', e);
 
             if ( value == this.lastTextValue ) {
@@ -85,11 +92,23 @@
 
             clearTimeout(this.timeoutObject);
 
-            if ( !value || api.validateRegex(value) ) {
+            if ( !value ) {
+                this.onTextChange();
+            } else if ( api.validateRegex(value) ) {
                 this.textInputElement.classList.remove('invalid-regex');
-                this.timeoutObject = setTimeout(function() {
-                    this.onTextChange();
-                }.bind(this), settings.TYPE_TIMEOUT_MS);
+
+                // Used to ensure the regex doesn't match too much.
+                lipsum = LIPSUM.match(new RegExp(value, 'gi'));
+                console.log('lipsum', lipsum);
+
+                if ( !lipsum || ((lipsum.length / LIPSUM_LENGTH) <= LIPSUM_MAX_MATCH_RATIO) ) {
+
+                    console.log('good regex');
+
+                    this.timeoutObject = setTimeout(function() {
+                        this.onTextChange();
+                    }.bind(this), settings.TYPE_TIMEOUT_MS);
+                }
             } else {
                 this.textInputElement.classList.add('invalid-regex');
             }
@@ -127,6 +146,18 @@
             handlers.textInputElement = document.getElementById('main-input-box');
             handlers.textInputElement.onkeyup = handlers.onKeyPress.bind(handlers);
             handlers.textInputElement.onchange = handlers.onTextChange.bind(handlers);
+
+            port.onMessage.addListener(function( message ) {
+                var textInputElement = handlers.textInputElement;
+                console.log('message received', message);
+                if ( textInputElement ) {
+                    if ( message.matched ) {
+                        textInputElement.classList.add('regex-matched');
+                    } else {
+                        textInputElement.classList.remove('regex-matched');
+                    }
+                }
+            });
 
             chrome.commands.onCommand.addListener(commandHandler);
         });
